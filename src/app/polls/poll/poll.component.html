@@ -1,0 +1,15 @@
+<mat-card class="form-card" *ngIf="poll$ | async as poll">
+  <mat-card-title>{{poll.title}}</mat-card-title>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit(pollForm)" id="ngForm" #pollForm="ngForm">
+      <mat-radio-group name="choice" [(ngModel)]="choice" required>
+        <mat-radio-button *ngFor="let option of poll.options" [value]="option">
+          {{option.description}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" form="ngForm">Vote</button>
+  </mat-card-actions>
+</mat-card>
