@@ -2,17 +2,17 @@
   <mat-card-title>New Poll</mat-card-title>
   <mat-card-subtitle>Create a new poll</mat-card-subtitle>
   <mat-card-content>
-    <form>
+    <form (ngSubmit)="onSubmit(pollForm)" id="ngForm" #pollForm="ngForm">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Poll title">
+        <input matInput placeholder="Poll title" name="pollTitle" ngModel required>
       </mat-form-field>
 
       <mat-form-field class="full-width" *ngFor="let option of options">
-        <input matInput [placeholder]="option.placeholder" [name]="'option_' + option.id" [ngModel]="option.description">
+        <input matInput [placeholder]="option.placeholder" [name]="'option' + option.id" [(ngModel)]="option.description">
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary">Start Poll</button>
+    <button mat-raised-button color="primary" form="ngForm">Start Poll</button>
   </mat-card-actions>
 </mat-card>

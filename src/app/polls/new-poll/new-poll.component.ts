@@ -1,4 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+import { PollService, IPollPayload } from '../poll.service';
 
 @Component({
   selector: 'app-new-poll',
@@ -10,11 +13,23 @@ export class NewPollComponent implements OnInit {
 
   options: PollOption[] = [];
   
-  constructor() {
+  constructor(private pollService: PollService) {
     this.appendNewOptions(3);
   }
 
   ngOnInit() {
+  }
+
+  onSubmit(pollForm: NgForm) {
+    if (pollForm.valid) {
+      const options = this.options
+        .map((option: PollOption) => option.description)
+        .filter((option) => !!option);
+
+      const payload: IPollPayload = {title: pollForm.value.pollTitle, options};
+
+      this.pollService.create(payload).subscribe();
+    }
   }
 
   private appendNewOptions(amount: number) {
