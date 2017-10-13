@@ -28,8 +28,6 @@ export class PollComponent implements OnInit {
     })
     .do((poll) => this.pollID = poll.id)
     .share();
-
-    this.poll$.subscribe(response => console.log('Response: ', response));
   }
 
   onSubmit(pollForm: NgForm) {

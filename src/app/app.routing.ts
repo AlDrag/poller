@@ -16,6 +16,11 @@ export const appRoutes: Routes = [
       path: ':uuid',
       component: PollComponent,
       pathMatch: 'full'
+    },
+    {
+      path: ':uuid/results',
+      component: PollResultComponent,
+      pathMatch: 'full'
     }
   ];
   

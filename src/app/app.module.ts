@@ -14,13 +14,15 @@ import { NewPollComponent } from './polls/new-poll/new-poll.component';
 import { PollService } from './polls/poll.service';
 import { PollResultComponent } from './polls/poll-result/poll-result.component';
 import { PollComponent } from './polls/poll/poll.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewPollComponent,
     PollResultComponent,
-    PollComponent
+    PollComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,

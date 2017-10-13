@@ -28,6 +28,10 @@ export class PollService {
     });
   }
 
+  getResults(uuid: string) {
+    return this.http.get(`${this.baseHREF}/${uuid}/results`);
+  }
+
   vote(pollID, optionID) {
     return this.http.post(`${this.baseHREF}/${pollID}/options/${optionID}/votes`, {});
   }
