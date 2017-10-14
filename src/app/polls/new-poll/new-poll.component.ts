@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { PollService, IPollPayload } from '../poll.service';
 
@@ -12,6 +13,7 @@ import { PollService, IPollPayload } from '../poll.service';
 export class NewPollComponent implements OnInit {
 
   options: PollOption[] = [];
+  pollResult$: Observable<any>;
   
   constructor(private pollService: PollService) {
     this.appendNewOptions(3);
@@ -28,7 +30,7 @@ export class NewPollComponent implements OnInit {
 
       const payload: IPollPayload = {title: pollForm.value.pollTitle, options};
 
-      this.pollService.create(payload).subscribe();
+      this.pollResult$ = this.pollService.create(payload).share();
     }
   }
 
