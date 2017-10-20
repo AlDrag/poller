@@ -11,7 +11,6 @@ import { PollService, IPollPayload } from '../poll.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewPollComponent implements OnInit {
-
   options: PollOption[] = [];
   pollResult$: Observable<any>;
   

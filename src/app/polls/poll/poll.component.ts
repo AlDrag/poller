@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +11,8 @@ import { PollService } from '../poll.service';
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
-  styleUrls: ['./poll.component.scss']
+  styleUrls: ['./poll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PollComponent implements OnInit {
   private pollID: number;

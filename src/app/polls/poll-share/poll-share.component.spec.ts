@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { NewPollComponent } from './new-poll.component';
+// import { PollShareComponent } from './poll-share.component';
 
-// describe('NewPollComponent', () => {
-//   let component: NewPollComponent;
-//   let fixture: ComponentFixture<NewPollComponent>;
+// describe('PollShareComponent', () => {
+//   let component: PollShareComponent;
+//   let fixture: ComponentFixture<PollShareComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ NewPollComponent ]
+//       declarations: [ PollShareComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(NewPollComponent);
+//     fixture = TestBed.createComponent(PollShareComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

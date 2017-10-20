@@ -15,6 +15,7 @@ import { PollService } from './polls/poll.service';
 import { PollResultComponent } from './polls/poll-result/poll-result.component';
 import { PollComponent } from './polls/poll/poll.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { PollShareComponent } from './polls/poll-share/poll-share.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
     NewPollComponent,
     PollResultComponent,
     PollComponent,
-    BarChartComponent
+    BarChartComponent,
+    PollShareComponent
   ],
   imports: [
     BrowserModule,

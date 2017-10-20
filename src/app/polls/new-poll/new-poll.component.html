@@ -19,12 +19,4 @@
   </mat-card-actions>
 </mat-card>
 
-<mat-card class="share-card" *ngIf="pollResult$ | async as poll">
-  <mat-card-title>Share Poll</mat-card-title>
-  <mat-card-content>
-    <p>{{poll.data.uuid}}</p>
-  </mat-card-content>
-  <mat-card-actions>
-    
-  </mat-card-actions>
-</mat-card>
+<app-poll-share [poll]="poll" *ngIf="pollResult$ | async as poll"></app-poll-share>
