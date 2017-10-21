@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 
@@ -16,8 +17,8 @@ export class PollService {
 
   }
 
-  create(payload: IPollPayload) {
-    return this.http.post(this.baseHREF, payload);
+  create(payload: IPollPayload): Observable<IPollResponse> {
+    return this.http.post(this.baseHREF, payload).map(response => response as IPollResponse);
   }
 
   getPoll(uuid: string) {
@@ -41,4 +42,16 @@ export class PollService {
 export interface IPollPayload {
   title: string;
   options: string[];
+}
+
+export interface IPollResponse {
+  data: IPollData,
+  status: string
+}
+
+export interface IPollData {
+  id: number,
+  options: {id: number, description: string, poll_id: number}[],
+  title: string,
+  uuid: string
 }
