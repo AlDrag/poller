@@ -1,1 +1,1 @@
-web: npm run build:dynamic && npm run serve:dynamic
+web: npm run serve:dynamic

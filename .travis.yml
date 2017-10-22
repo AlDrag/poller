@@ -30,6 +30,9 @@ before_script:
 
 script: ng test --single-run
 
+after_script:
+  - npm run build:dynamic
+
 deploy:
   provider: heroku
   api_key: $HEROKU_API_KEY
