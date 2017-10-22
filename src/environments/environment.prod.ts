@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'https://poller-api.herokuapp.com/'
+  baseURL: 'https://poller-api.herokuapp.com'
 };
