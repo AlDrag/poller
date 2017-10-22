@@ -29,3 +29,8 @@ before_script:
   - ng build
 
 script: ng test --single-run
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: poller-spa
