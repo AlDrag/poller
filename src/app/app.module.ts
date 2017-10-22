@@ -27,7 +27,7 @@ import { PollShareComponent } from './polls/poll-share/poll-share.component';
     PollShareComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'poller'}),
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     FlexLayoutModule,

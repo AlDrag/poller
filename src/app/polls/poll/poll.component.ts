@@ -19,7 +19,7 @@ export class PollComponent implements OnInit {
   private pollID: number;
 
   choice: any;
-  private poll$: Observable<any>;
+  poll$: Observable<any>;
 
   constructor(private route: ActivatedRoute,
               private pollService: PollService) { }
