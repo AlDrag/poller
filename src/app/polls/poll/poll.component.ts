@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -16,26 +16,27 @@ import { PollService } from '../poll.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PollComponent implements OnInit {
-  private pollID: number;
+  private poll: any;
 
   choice: any;
   poll$: Observable<any>;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private pollService: PollService) { }
 
   ngOnInit() {
     this.poll$ = this.route.params.switchMap((params) => {
       return this.pollService.getPoll(params.uuid);
     })
-    .do((poll) => this.pollID = poll.id)
+    .do((poll) => this.poll = poll)
     .share();
   }
 
   onSubmit(pollForm: NgForm) {
     if (pollForm.valid) {
-      this.pollService.vote(this.pollID, this.choice.id).subscribe((response) => {
-
+      this.pollService.vote(this.poll.id, this.choice.id).subscribe((response) => {
+        this.router.navigate([`${this.poll.uuid}/results`])
       });
     }
   }

@@ -21,7 +21,7 @@ export class PollService {
     return this.http.post(this.baseHREF, payload).map(response => response as IPollResponse);
   }
 
-  getPoll(uuid: string) {
+  getPoll(uuid: string): Observable<IPollResponse> {
     return this.http.get(`${this.baseHREF}/${uuid}`).mergeMap((x: any) => {
       return this.http.get(`${this.baseHREF}/${x.data[0].id}/options`)
         .map((options: any) => {
@@ -34,8 +34,8 @@ export class PollService {
     return this.http.get(`${this.baseHREF}/${uuid}/results`);
   }
 
-  vote(pollID, optionID) {
-    return this.http.post(`${this.baseHREF}/${pollID}/options/${optionID}/votes`, {});
+  vote(pollID, optionID): Observable<IPollResponse> {
+    return this.http.post(`${this.baseHREF}/${pollID}/options/${optionID}/votes`, {}).map(response => response as IPollResponse);
   }
 }
 
@@ -45,7 +45,7 @@ export interface IPollPayload {
 }
 
 export interface IPollResponse {
-  data: IPollData,
+  data: IPollData | IVoteData,
   status: string
 }
 
@@ -54,4 +54,10 @@ export interface IPollData {
   options: {id: number, description: string, poll_id: number}[],
   title: string,
   uuid: string
+}
+
+export interface IVoteData {
+  id: number,
+  option_id: number,
+  poll_id: number
 }
