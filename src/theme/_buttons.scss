@@ -1,0 +1,11 @@
+.mat-button .mat-spinner,
+.mat-raised-button .mat-spinner {
+    height: 20px !important;
+    width: 20px !important;
+    display: inline-block;
+
+    svg {
+        height: 20px !important;
+        width: 20px !important;
+    }
+}

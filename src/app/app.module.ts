@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MatCardModule, MatButtonModule, MatInputModule, MatRadioModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatInputModule, MatRadioModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { appRoutes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -38,6 +38,7 @@ import { PollShareComponent } from './polls/poll-share/poll-share.component';
     MatButtonModule,
     MatInputModule,
     MatRadioModule,
+    MatProgressSpinnerModule
   ],
   providers: [PollService],
   bootstrap: [AppComponent]
