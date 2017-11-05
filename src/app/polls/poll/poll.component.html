@@ -10,6 +10,9 @@
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" form="ngForm">Vote</button>
+    <button mat-raised-button color="primary" form="ngForm" [disabled]="submitting">
+      <mat-spinner *ngIf="submitting"></mat-spinner>
+      {{(submitting) ? 'Voting' : 'Vote'}}
+    </button>
   </mat-card-actions>
 </mat-card>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
+import 'rxjs/add/operator/finally';
 
 import { PollService, IPollPayload } from '../poll.service';
 
@@ -13,6 +14,7 @@ import { PollService, IPollPayload } from '../poll.service';
 export class NewPollComponent implements OnInit {
   options: PollOption[] = [];
   pollResult$: Observable<any>;
+  submitting = false;
   
   constructor(private pollService: PollService) {
     this.appendNewOptions(3);
@@ -23,13 +25,14 @@ export class NewPollComponent implements OnInit {
 
   onSubmit(pollForm: NgForm) {
     if (pollForm.valid) {
+      this.submitting = true;
       const options = this.options
         .map((option: PollOption) => option.description)
         .filter((option) => !!option);
 
       const payload: IPollPayload = {title: pollForm.value.pollTitle, options};
 
-      this.pollResult$ = this.pollService.create(payload).share();
+      this.pollResult$ = this.pollService.create(payload).finally(() => this.submitting = true).share();
     }
   }
 
