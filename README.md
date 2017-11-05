@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AlDrag/poller.svg?branch=master)](https://travis-ci.org/AlDrag/poller)
+
 # Poller
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.5.
