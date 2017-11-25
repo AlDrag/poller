@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule, MatRadioModule } from '@angular/material';
+import { MatCardModule, MatRadioModule, MatProgressSpinnerModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
@@ -21,7 +21,7 @@ describe('PollComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PollComponent ],
-      imports: [ MatCardModule, MatRadioModule, FormsModule, RouterTestingModule ],
+      imports: [ MatCardModule, MatRadioModule, MatProgressSpinnerModule, FormsModule, RouterTestingModule ],
       providers: [{provide: PollService, useClass: PollMockService }]
     })
     .compileComponents();

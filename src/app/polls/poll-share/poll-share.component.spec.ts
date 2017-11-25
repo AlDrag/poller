@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import { PollShareComponent } from './poll-share.component';
 
@@ -10,7 +10,7 @@ describe('PollShareComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PollShareComponent ],
-      imports: [ MatCardModule ]
+      imports: [ MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule ]
     })
     .compileComponents();
   }));
