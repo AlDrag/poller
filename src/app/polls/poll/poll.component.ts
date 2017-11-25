@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -25,6 +25,7 @@ export class PollComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private cd: ChangeDetectorRef,
               private pollService: PollService) { }
 
   ngOnInit() {
@@ -39,7 +40,10 @@ export class PollComponent implements OnInit {
     if (pollForm.valid) {
       this.submitting = true;
       this.pollService.vote(this.poll.id, this.choice.id)
-      .finally(() => this.submitting = false)
+      .finally(() => {
+        this.submitting = false;
+        this.cd.markForCheck();
+      })
       .subscribe((response) => {
         this.router.navigate([`${this.poll.uuid}/results`])
       });
