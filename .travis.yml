@@ -36,9 +36,13 @@ jobs:
         - npm install -g yarn
         - yarn
       script: ng e2e --single-run
-    - stage: deploy
+    - stage: Deployment
       before_deploy: npm run build:dynamic
       skip_cleanup: true
       provider: heroku
       api_key: $HEROKU_API_KEY
       app: poller-spa
+      on:
+        branch: master
+    - stage: Test Deployment
+      script: 'curl https://poller-spa.herokuapp.com'
