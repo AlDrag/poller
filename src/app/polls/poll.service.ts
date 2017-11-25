@@ -35,7 +35,8 @@ export class PollService {
   }
 
   vote(pollID, optionID): Observable<IPollResponse> {
-    return this.http.post(`${this.baseHREF}/${pollID}/options/${optionID}/votes`, {}).map(response => response as IPollResponse);
+    return this.http.post(`${this.baseHREF}/${pollID}/options/${optionID}/votes`, {})
+      .map(response => response as IPollResponse);
   }
 }
 
