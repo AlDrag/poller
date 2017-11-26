@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +29,8 @@ import { PollShareComponent } from './polls/poll-share/poll-share.component';
   imports: [
     BrowserModule.withServerTransition({appId: 'poller'}),
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
+    BrowserTransferStateModule,
+    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabled' }),
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
