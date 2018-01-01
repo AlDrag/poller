@@ -1,7 +1,7 @@
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,6 +16,7 @@ import { PollResultComponent } from './polls/poll-result/poll-result.component';
 import { PollComponent } from './polls/poll/poll.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { PollShareComponent } from './polls/poll-share/poll-share.component';
+import { TransferStateInterceptor } from './http-interceptors/transfer-state.interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,11 @@ import { PollShareComponent } from './polls/poll-share/poll-share.component';
     MatRadioModule,
     MatProgressSpinnerModule
   ],
-  providers: [PollService],
+  providers: [PollService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TransferStateInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
