@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -22,12 +24,27 @@ export class PollService {
   }
 
   getPoll(uuid: string): Observable<IPollResponse> {
-    return this.http.get(`${this.baseHREF}/${uuid}`).mergeMap((x: any) => {
-      return this.http.get(`${this.baseHREF}/${x.data[0].id}/options`)
-        .map((options: any) => {
-          return {...x.data[0], options: options.data};
-        });
-    });
+    return this.http.get(`${this.baseHREF}/${uuid}`)
+      .catch(e => Observable.of(e))
+      .switchMap((x: IPollResponse | HttpErrorResponse) => {
+        if (x instanceof HttpErrorResponse) {
+          return Observable.of({status: 'failed', data: {id: 0, title: '', uuid: ''}});
+        } else {
+          return this.http.get(`${this.baseHREF}/${x.data[0].id}/options`)
+            .map((options: IPollResponse) => {
+              const pollData = x.data[0];
+              return {
+                status: options.status,
+                data: {
+                  id: pollData.id,
+                  title: pollData.title,
+                  uuid: pollData.uuid,
+                  options: options.data
+                }
+              };
+            });
+        }
+      });
   }
 
   getResults(uuid: string) {
@@ -52,7 +69,7 @@ export interface IPollResponse {
 
 export interface IPollData {
   id: number,
-  options: {id: number, description: string, poll_id: number}[],
+  options?: {id: number, description: string, poll_id: number}[],
   title: string,
   uuid: string
 }

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/do';
 
-import { PollService } from '../poll.service';
+import { PollService, IPollResponse } from '../poll.service';
 
 @Component({
   selector: 'app-poll',
@@ -21,7 +21,7 @@ export class PollComponent implements OnInit {
   poll$: Observable<any>;
   submitting = false;
 
-  private poll: any;
+  private poll: IPollResponse;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -39,14 +39,14 @@ export class PollComponent implements OnInit {
   onSubmit(pollForm: NgForm) {
     if (pollForm.valid) {
       this.submitting = true;
-      this.pollService.vote(this.poll.id, this.choice.id)
-      .finally(() => {
-        this.submitting = false;
-        this.cd.markForCheck();
-      })
-      .subscribe((response) => {
-        this.router.navigate([`${this.poll.uuid}/results`])
-      });
+      this.pollService.vote(this.poll.data.id, this.choice.id)
+        .finally(() => {
+          this.submitting = false;
+          this.cd.markForCheck();
+        })
+        .subscribe((response) => {
+          this.router.navigate([`${this.poll.data.uuid}/results`])
+        });
     }
   }
 }

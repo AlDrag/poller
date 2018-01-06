@@ -5,6 +5,11 @@
     justify-content: center;
     align-items: center;
 
+    .container {
+        min-width: 50%;
+        text-align: center;
+    }
+
     .form-card {
         min-width: 50%;
     }
