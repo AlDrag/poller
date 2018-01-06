@@ -49,6 +49,12 @@ export class NewPollComponent implements OnInit {
     }
   }
 
+  optionRequired(option: PollOption) {
+    if (this.options.every(option => option.description.length === 0)) {
+      return option.id === 0;
+    }
+  }
+
   private appendNewOptions(amount: number) {
     const lastOption = this.options[this.options.length - 1];
     const startingIndex = (lastOption) ? lastOption.id + 1 : 0;
