@@ -63,7 +63,7 @@ export interface IPollPayload {
 }
 
 export interface IPollResponse {
-  data: IPollData | IVoteData,
+  data: IPollData,
   status: string
 }
 
