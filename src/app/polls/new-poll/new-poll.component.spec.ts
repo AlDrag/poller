@@ -14,7 +14,6 @@ class PollMockService {
     }
 }
 
-
 describe('NewPollComponent', () => {
   let component: NewPollComponent;
   let fixture: ComponentFixture<NewPollComponent>;
@@ -36,5 +35,9 @@ describe('NewPollComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should start with 3 option fields', () => {
+    expect(component.options.length).toEqual(3);
   });
 });

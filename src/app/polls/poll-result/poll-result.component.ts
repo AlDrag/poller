@@ -28,7 +28,7 @@ export class PollResultComponent implements OnInit {
 
     this.graphData$ = this.result$.map((results: any[]) => {
       const object: GraphData = {labels: [], values: []};
-      for(let i = 0; i < results.length; i++) {
+      for (let i = 0; i < results.length; i++) {
         object.labels.push(results[i].description);
         object.values.push(parseInt(results[i].count));
       }

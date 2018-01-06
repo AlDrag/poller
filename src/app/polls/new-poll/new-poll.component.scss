@@ -6,10 +6,17 @@
     align-items: center;
 
     .form-card {
-        min-width: 50%;
+        width: 50%;
     }
 
     .mat-form-field.full-width {
         width: 100%;
+    }
+
+    app-poll-share {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-content: center;
     }
 }

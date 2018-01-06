@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/finally';
 
-import { PollService, IPollPayload } from '../poll.service';
+import { PollService, IPollPayload, IPollResponse } from '../poll.service';
 
 @Component({
   selector: 'app-new-poll',
@@ -13,7 +13,7 @@ import { PollService, IPollPayload } from '../poll.service';
 })
 export class NewPollComponent implements OnInit {
   options: PollOption[] = [];
-  pollResult$: Observable<any>;
+  pollResult$: Observable<IPollResponse>;
   submitting = false;
   
   constructor(private pollService: PollService) {
@@ -36,10 +36,26 @@ export class NewPollComponent implements OnInit {
     }
   }
 
+  onOptionInputFocused(event: FocusEvent, id: number) {
+    console.log('Options: ', this.options);
+    console.log('Index: ', id);
+
+    if (id === this.options.length - 1) {
+      const createNewOption = this.options
+        .filter(option => option.id !== id)
+        .every(option => option.description.length > 0);
+
+        console.log('Create New Option?: ', createNewOption);
+      if (createNewOption) {
+        this.appendNewOptions(1);
+      }
+    }
+  }
+
   private appendNewOptions(amount: number) {
     const lastOption = this.options[this.options.length - 1];
-    const lastIndex = (lastOption) ? lastOption.id : 0;
-    for(let i = lastIndex; i < amount; i++) {
+    const startingIndex = (lastOption) ? lastOption.id + 1 : 0;
+    for(let i = startingIndex; i < startingIndex + amount; i++) {
       this.options.push(new PollOption({id: i, placeholder: `Option ${i}`, description: ''}))
     }
   }

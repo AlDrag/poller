@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, SimpleChanges } from '@angular/core';
 
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-bar-chart',
