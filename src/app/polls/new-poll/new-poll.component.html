@@ -8,7 +8,7 @@
       </mat-form-field>
 
       <mat-form-field class="full-width" *ngFor="let option of options">
-        <input matInput [placeholder]="option.placeholder"
+        <input matInput [id]="'option' + option.id" [placeholder]="option.placeholder"
                         [name]="'option' + option.id"
                         [(ngModel)]="option.description"
                         (focus)="onOptionInputFocused($event, option.id)">

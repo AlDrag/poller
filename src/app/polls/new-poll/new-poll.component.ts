@@ -37,9 +37,6 @@ export class NewPollComponent implements OnInit {
   }
 
   onOptionInputFocused(event: FocusEvent, id: number) {
-    console.log('Options: ', this.options);
-    console.log('Index: ', id);
-
     if (id === this.options.length - 1) {
       const createNewOption = this.options
         .filter(option => option.id !== id)
