@@ -9,6 +9,6 @@ describe('poller App', () => {
 
   it('should display New Poll page', () => {
     page.navigateTo();
-    expect(page.getCardTitle()).toEqual('New Poll');
+    expect(page.getCardTitle()).toEqual('Create Poll');
   });
 });
