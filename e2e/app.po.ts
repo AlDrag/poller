@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get('/');
   }
 
-  getCardTitle() {
-    return element(by.css('mat-card-title')).getText();
+  getSubmitButtonText() {
+    return element(by.css('button')).getText();
   }
 }
