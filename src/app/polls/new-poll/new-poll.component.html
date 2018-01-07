@@ -1,5 +1,4 @@
 <mat-card class="form-card" *ngIf="!(pollResult$ | async)">
-  <mat-card-title>Create Poll</mat-card-title>
   <mat-card-content>
     <form (ngSubmit)="onSubmit(pollForm)" id="ngForm" #pollForm="ngForm">
       <mat-form-field class="full-width" floatLabel="never">
