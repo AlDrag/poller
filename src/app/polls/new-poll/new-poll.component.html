@@ -1,14 +1,14 @@
 <mat-card class="form-card" *ngIf="!(pollResult$ | async)">
   <mat-card-content>
     <form (ngSubmit)="onSubmit(pollForm)" id="ngForm" #pollForm="ngForm">
-      <mat-form-field class="full-width" floatLabel="never">
+      <mat-form-field class="full-width" hideRequiredMarker="true" floatLabel="never">
         <input matInput placeholder="Question..." name="pollTitle" ngModel required>
         <mat-error *ngIf="!pollForm.hasError('required')">
           Question is required
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width" floatLabel="never" *ngFor="let option of options">
+      <mat-form-field class="full-width" hideRequiredMarker="true" floatLabel="never" *ngFor="let option of options">
         <input matInput [id]="'option' + option.id"
                         placeholder="Poll option..."
                         [name]="'option' + option.id"
