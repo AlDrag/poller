@@ -5,8 +5,9 @@ import { PollComponent } from './polls/poll/poll.component';
 
 export const appRoutes: Routes = [
     {
-      path: 'new',
+      path: '',
       component: NewPollComponent,
+      pathMatch: 'full'
     },
     {
       path: ':uuid',
@@ -17,10 +18,6 @@ export const appRoutes: Routes = [
       path: ':uuid/results',
       component: PollResultComponent,
       pathMatch: 'full'
-    },
-    {
-      path: '**',
-      redirectTo: '/new'
     }
   ];
   
