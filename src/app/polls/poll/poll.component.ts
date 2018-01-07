@@ -7,8 +7,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/empty';
 
 import { PollService, IPollResponse } from '../poll.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-poll',
@@ -19,7 +22,7 @@ import { PollService, IPollResponse } from '../poll.service';
 export class PollComponent implements OnInit {
   choice: any;
   poll$: Observable<any>;
-  submitting = false;
+  readonly submitStatus$ = new BehaviorSubject<{submitting: boolean, error?: string}>({submitting: false})
 
   private poll: IPollResponse;
 
@@ -38,12 +41,16 @@ export class PollComponent implements OnInit {
 
   onSubmit(pollForm: NgForm) {
     if (pollForm.valid) {
-      this.submitting = true;
+      this.submitStatus$.next({submitting: true});
       this.pollService.vote(this.poll.data.id, this.choice.id)
         .finally(() => {
-          this.submitting = false;
           this.cd.markForCheck();
         })
+        .catch((e: HttpErrorResponse) => {
+          this.submitStatus$.next({submitting: false, error: e.error.message});
+          return Observable.empty();
+        })
+        .do(() => this.submitStatus$.next({submitting: false}))
         .subscribe((response) => {
           this.router.navigate([`${this.poll.data.uuid}/results`])
         });

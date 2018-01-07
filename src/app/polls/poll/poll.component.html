@@ -11,11 +11,15 @@
           </mat-radio-button>
         </mat-radio-group>
       </form>
+
+      <mat-error *ngIf="submitStatus$ | async as submitStatus">
+        <span *ngIf="!submitStatus.submitting">{{submitStatus?.error}}</span>
+      </mat-error>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" form="ngForm" [disabled]="submitting">
-        <mat-spinner *ngIf="submitting"></mat-spinner>
-        {{(submitting) ? 'Voting' : 'Vote'}}
+      <button mat-raised-button color="primary" form="ngForm" [disabled]="(submitStatus$ | async).submitting">
+        <mat-spinner *ngIf="(submitStatus$ | async).submitting"></mat-spinner>
+        {{((submitStatus$ | async).submitting) ? 'Voting' : 'Vote'}}
       </button>
     </mat-card-actions>
   </mat-card>
