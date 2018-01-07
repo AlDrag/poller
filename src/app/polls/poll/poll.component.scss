@@ -14,7 +14,8 @@
     }
 
     .form-card {
-        width: 50%;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .mat-form-field.full-width {
