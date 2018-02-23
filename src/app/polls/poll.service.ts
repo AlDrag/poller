@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/Observable/of';
+import 'rxjs/add/observable/of';
 import { map, catchError, switchMap } from 'rxjs/operators';
 
 @Injectable()

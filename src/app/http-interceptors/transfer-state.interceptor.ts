@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators';
-import { of } from 'rxjs/Observable/of';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class TransferStateInterceptor implements HttpInterceptor {
