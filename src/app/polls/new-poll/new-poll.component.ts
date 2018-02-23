@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PollService, IPollPayload, IPollResponse } from '../poll.service';
 import { finalize, share } from 'rxjs/operators';
+import { isPresent } from '../../helpers/null-helpers';
 
 @Component({
   selector: 'app-new-poll',
@@ -27,7 +28,7 @@ export class NewPollComponent implements OnInit {
       this.submitting = true;
       const options = this.options
         .map((option: PollOption) => option.description)
-        .filter((option) => !!option);
+        .filter(isPresent);
 
       const payload: IPollPayload = {title: pollForm.value.pollTitle, options};
 
