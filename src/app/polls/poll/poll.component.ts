@@ -21,7 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PollComponent implements OnInit {
   choice: any;
-  poll$: Observable<any>;
+  poll$: Observable<IPollResponse>;
   readonly submitStatus$ = new BehaviorSubject<{submitting: boolean, error?: string}>({submitting: false})
 
   private poll: IPollResponse;
