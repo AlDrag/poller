@@ -3,10 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
+import { map, catchError, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class PollService {
@@ -15,36 +12,39 @@ export class PollService {
 
   constructor(private http: HttpClient) { }
 
-  get() {
-
-  }
-
   create(payload: IPollPayload): Observable<IPollResponse> {
-    return this.http.post(this.baseHREF, payload).map(response => response as IPollResponse);
+    return this.http.post(this.baseHREF, payload)
+      .pipe(
+        map(response => response as IPollResponse)
+      );
   }
 
   getPoll(uuid: string): Observable<IPollResponse> {
     return this.http.get(`${this.baseHREF}/${uuid}`)
-      .catch(e => Observable.of(e))
-      .switchMap((x: IPollResponse | HttpErrorResponse) => {
-        if (x instanceof HttpErrorResponse) {
-          return Observable.of({status: 'failed', data: {id: 0, title: '', uuid: ''}});
-        } else {
-          return this.http.get(`${this.baseHREF}/${x.data[0].id}/options`)
-            .map((options: IPollResponse) => {
-              const pollData = x.data[0];
-              return {
-                status: options.status,
-                data: {
-                  id: pollData.id,
-                  title: pollData.title,
-                  uuid: pollData.uuid,
-                  options: options.data
-                }
-              };
-            });
-        }
-      });
+      .pipe(
+        catchError(e => Observable.of(e)),
+        switchMap((x: IPollResponse | HttpErrorResponse) => {
+          if (x instanceof HttpErrorResponse) {
+            return Observable.of({status: 'failed', data: {id: 0, title: '', uuid: ''}});
+          } else {
+            return this.http.get(`${this.baseHREF}/${x.data[0].id}/options`)
+              .pipe(
+                map((options: IPollResponse) => {
+                  const pollData = x.data[0];
+                  return {
+                    status: options.status,
+                    data: {
+                      id: pollData.id,
+                      title: pollData.title,
+                      uuid: pollData.uuid,
+                      options: options.data
+                    }
+                  };
+                })
+              );
+          }
+        })
+      );
   }
 
   getResults(uuid: string) {
@@ -53,7 +53,9 @@ export class PollService {
 
   vote(pollID, optionID): Observable<IPollResponse> {
     return this.http.post(`${this.baseHREF}/${pollID}/options/${optionID}/votes`, {})
-      .map(response => response as IPollResponse);
+      .pipe(
+        map(response => response as IPollResponse)
+      );
   }
 }
 

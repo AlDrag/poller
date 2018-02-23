@@ -8,8 +8,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class TransferStateInterceptor implements HttpInterceptor {
@@ -28,10 +27,13 @@ export class TransferStateInterceptor implements HttpInterceptor {
             return Observable.of(new HttpResponse<any>(cachedResponse));
         }
         
-        return next.handle(request).do(event => {
-            if (event instanceof HttpResponse) {
-                this.state.set(STATE_KEY, event.clone());
-            }
-        });
+        return next.handle(request)
+            .pipe(
+                tap(event => {
+                    if (event instanceof HttpResponse) {
+                        this.state.set(STATE_KEY, event.clone());
+                    }
+                })
+            );
     }
 }

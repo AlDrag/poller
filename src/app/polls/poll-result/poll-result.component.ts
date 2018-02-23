@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/reduce';
 
 import { PollService } from '../poll.service';
+import { switchMap, share, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-poll-result',
@@ -22,18 +21,26 @@ export class PollResultComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.result$ = this.route.params.switchMap((params) => {
-      return this.pollService.getResults(params.uuid).map((response: any) => response.data);
-    }).share();
+    this.result$ = this.route.params
+      .pipe(
+        switchMap((params) => {
+          return this.pollService.getResults(params.uuid)
+            .pipe(map((response: any) => response.data));
+        }),
+        share()
+      );
 
-    this.graphData$ = this.result$.map((results: any[]) => {
-      const object: GraphData = {labels: [], values: []};
-      for (let i = 0; i < results.length; i++) {
-        object.labels.push(results[i].description);
-        object.values.push(parseInt(results[i].count));
-      }
-      return object;
-    });
+    this.graphData$ = this.result$
+      .pipe(
+        map((results: any[]) => {
+          const object: GraphData = {labels: [], values: []};
+          for (let i = 0; i < results.length; i++) {
+            object.labels.push(results[i].description);
+            object.values.push(parseInt(results[i].count));
+          }
+          return object;
+        })
+      );
   }
 }
 

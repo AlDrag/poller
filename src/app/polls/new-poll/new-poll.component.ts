@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/finally';
-
 import { PollService, IPollPayload, IPollResponse } from '../poll.service';
+import { finalize, share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-poll',
@@ -32,7 +31,11 @@ export class NewPollComponent implements OnInit {
 
       const payload: IPollPayload = {title: pollForm.value.pollTitle, options};
 
-      this.pollResult$ = this.pollService.create(payload).finally(() => this.submitting = true).share();
+      this.pollResult$ = this.pollService.create(payload)
+        .pipe(
+          finalize(() => this.submitting = true),
+          share()
+        );
     }
   }
 
@@ -42,7 +45,6 @@ export class NewPollComponent implements OnInit {
         .filter(option => option.id !== id)
         .every(option => option.description.length > 0);
 
-        console.log('Create New Option?: ', createNewOption);
       if (createNewOption) {
         this.appendNewOptions(1);
       }
