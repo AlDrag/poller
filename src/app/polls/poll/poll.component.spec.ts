@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule, MatRadioModule, MatProgressSpinnerModule, MatFormFieldModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { of } from 'rxjs/Observable/of';
 
 import { PollService } from '../poll.service';
 import { PollComponent } from './poll.component';
