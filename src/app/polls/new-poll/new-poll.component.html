@@ -22,7 +22,7 @@
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" form="ngForm" [disabled]="submitting">
+    <button mat-raised-button class="button" color="primary" form="ngForm" [disabled]="submitting">
       <mat-spinner *ngIf="submitting"></mat-spinner>
       {{(submitting) ? 'Submitting' : 'Start Poll'}}
     </button>
