@@ -23,10 +23,8 @@ export class PollShareComponent implements OnInit {
   copyToClipboard() {
     this.uuidInput.nativeElement.select();
     try {
-      var successful = document.execCommand('copy');
-      if (!successful) throw successful;
+      const successful = document.execCommand('copy');
     } catch (err) {
-      
     }
   }
 }

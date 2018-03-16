@@ -20,4 +20,3 @@ export const appRoutes: Routes = [
       pathMatch: 'full'
     }
   ];
-  

@@ -31,7 +31,6 @@ export class PollComponent implements OnInit {
                     switchMap((params) => {
                       return this.pollService.getPoll(params.uuid).pipe(share());
                     }),
-                    tap(data => console.log('Data: ', data)),
                     tap((poll) => this.poll = poll),
                     share()
                   );

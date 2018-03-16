@@ -10,4 +10,3 @@ export function assertPresent<T>(t: T|null|undefined): T {
     }
     return t;
 }
-  

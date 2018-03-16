@@ -66,19 +66,19 @@ export interface IPollPayload {
 }
 
 export interface IPollResponse {
-  data: IPollData,
-  status: string
+  data: IPollData;
+  status: string;
 }
 
 export interface IPollData {
-  id: number,
-  options?: {id: number, description: string, poll_id: number}[],
-  title: string,
-  uuid: string
+  id: number;
+  options?: {id: number, description: string, poll_id: number}[];
+  title: string;
+  uuid: string;
 }
 
 export interface IVoteData {
-  id: number,
-  option_id: number,
-  poll_id: number
+  id: number;
+  option_id: number;
+  poll_id: number;
 }

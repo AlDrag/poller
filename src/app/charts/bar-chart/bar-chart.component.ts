@@ -23,7 +23,6 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    
   }
 
   initGraph() {
@@ -43,13 +42,13 @@ export class BarChartComponent implements OnInit, OnChanges {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero: true
                     }
                 }]
             }
         }
       });
-  
+
       Chart.defaults.global.defaultColor = 'rgba(255, 0, 0, 0.4)';
   }
 }

@@ -13,21 +13,21 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class TransferStateInterceptor implements HttpInterceptor {
-    
+
     constructor(private state: TransferState) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (request.method !== "GET") {
+        if (request.method !== 'GET') {
             return next.handle(request);
         }
-        
+
         const STATE_KEY = makeStateKey(request.urlWithParams);
         const cachedResponse = this.state.get(STATE_KEY, null);
 
         if (cachedResponse) {
             return Observable.of(new HttpResponse<any>(cachedResponse));
         }
-        
+
         return next.handle(request)
             .pipe(
                 tap(event => {
