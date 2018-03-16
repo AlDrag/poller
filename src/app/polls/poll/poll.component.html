@@ -1,32 +1,35 @@
-<mat-spinner *ngIf="!(poll$ | async)"></mat-spinner>
+<ng-container *ngIf="{poll: poll$ | async, submitStatus: submitStatus$ | async} as data">
+  <mat-spinner *ngIf="!data.poll"></mat-spinner>
 
-<div class="container" *ngIf="poll$ | async as poll">
-  <mat-card class="form-card" *ngIf="poll.status === 'success'">
-    <mat-card-title>{{poll.data.title}}</mat-card-title>
-    <mat-card-content>
-      <form (ngSubmit)="onSubmit(pollForm)" id="ngForm" #pollForm="ngForm">
-        <mat-radio-group name="choice" [(ngModel)]="choice" required>
-          <mat-radio-button *ngFor="let option of poll.data.options" [value]="option">
-            {{option.description}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </form>
+  <div class="container" *ngIf="data.poll as poll">
+    <mat-card class="form-card" *ngIf="poll.status === 'success'">
+      <mat-card-title>{{poll.data.title}}</mat-card-title>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit(pollForm)" id="ngForm" #pollForm="ngForm">
+          <mat-radio-group name="choice" [(ngModel)]="choice" required>
+            <mat-radio-button *ngFor="let option of poll.data.options" [value]="option">
+              {{option.description}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </form>
 
-      <mat-error *ngIf="submitStatus$ | async as submitStatus">
-        <span *ngIf="!submitStatus.submitting">{{submitStatus?.error}}</span>
-      </mat-error>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" form="ngForm" [disabled]="(submitStatus$ | async).submitting">
-        <mat-spinner *ngIf="(submitStatus$ | async).submitting"></mat-spinner>
-        {{((submitStatus$ | async).submitting) ? 'Voting' : 'Vote'}}
-      </button>
-    </mat-card-actions>
-  </mat-card>
+        <mat-error *ngIf="data.submitStatus">
+          <span *ngIf="!data.submitStatus.submitting">{{submitStatus?.error}}</span>
+        </mat-error>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" form="ngForm" [disabled]="data.submitStatus.submitting">
+          <mat-spinner *ngIf="data.submitStatus.submitting"></mat-spinner>
+          {{((submitStatus$ | async).submitting) ? 'Voting' : 'Vote'}}
+        </button>
+      </mat-card-actions>
+    </mat-card>
 
-  <div class="poll-not-found" *ngIf="poll.status === 'failed'">
-    <h2>Poll not found.</h2>
-    <h2>Maybe you were given a broken link?</h2>
-    <p>&ngsp;</p>
-    <h3>Create a <a [routerLink]="['']">new Poll</a></h3>
-</div>
+    <div class="poll-not-found" *ngIf="data.poll.status === 'failed'">
+      <h2>Poll not found.</h2>
+      <h2>Maybe you were given a broken link?</h2>
+      <p>&nbsp;</p>
+      <h3>Create a <a [routerLink]="['']">new Poll</a></h3>
+    </div>
+  </div>
+</ng-container>
